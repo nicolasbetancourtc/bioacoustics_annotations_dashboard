@@ -44,6 +44,14 @@ for uploaded_file in uploaded_files:
         uploaded_file.seek(0)
         df_annotation = read_audacity_annot(uploaded_file)
         bytes_data = uploaded_file.read()
+        filename=uploaded_file.name.replace('.txt','')
+        if len(filename.split('_')) != 3:
+            raise ValueError(f"Wrong file name format for {filename}. File name should be in format SITE_YYYYMMDD_HHMMSS.txt")
+        elif (len(filename.split('_')[1]) != 8) or not (filename.split('_')[1].isdigit()):
+            raise ValueError(f"Wrong date format for {filename}. Current date format is {filename.split('_')[1]} but it should be YYYYMMDD")
+        elif (len(filename.split('_')[2]) != 6) or not (filename.split('_')[2].isdigit()):
+            raise ValueError(f"Wrong time format for {filename}. Current time format is {filename.split('_')[2]} but it should be HHMMSS")
+
         df_annotation['fname'] = uploaded_file.name
         file_names.append(uploaded_file.name)
         df = pd.concat([df, df_annotation],ignore_index=True)
