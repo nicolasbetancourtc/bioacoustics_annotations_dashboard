@@ -6,7 +6,8 @@ from collections import Counter
 from maad.util import read_audacity_annot
 
 from utils import preprocessing, examine_dictionaries
-
+import os
+os.environ["STREAMLIT_SERVER_FILE_WATCHER_TYPE"] = "none"
 # Planilha ??
 # df = pd.read_csv("https://raw.githubusercontent.com/Lexie88rus/bank-marketing-analysis/master/bank.csv")
 
